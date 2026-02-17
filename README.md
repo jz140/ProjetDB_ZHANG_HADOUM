@@ -11,8 +11,8 @@ Fournis donc les règles de gestion et le dictionnaire de données
 Et voici les images pris de la discussion avec l'IA :
 
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/65c46818-4eca-493d-919d-34d722cca9b9" />
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/af337cf8-1499-4bf1-8150-7047501f843e" />
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/d739af74-069e-4373-b056-a2ce285416e9" />
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/94fbc354-f2e8-4df5-945c-fc7fc5ed65c3" />
-<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/af337cf8-1499-4bf1-8150-7047501f843e" />
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/06e022c7-ef59-4c75-86ca-0ae78d904c28" />
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/80867957-bc72-4df5-a73d-0fc842f6697b" />
