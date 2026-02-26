@@ -16,3 +16,7 @@ Et voici les images pris de la discussion avec l'IA :
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/94fbc354-f2e8-4df5-945c-fc7fc5ed65c3" />
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/06e022c7-ef59-4c75-86ca-0ae78d904c28" />
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/80867957-bc72-4df5-a73d-0fc842f6697b" />
+
+Voici une image de notre MCD : 
+<img width="2398" height="1322" alt="image" src="https://github.com/user-attachments/assets/13ff77b5-6e6e-488e-ab89-e92838c82d01" />
+
