@@ -18,6 +18,6 @@ Et voici les images pris de la discussion avec l'IA :
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/80867957-bc72-4df5-a73d-0fc842f6697b" />
 
 Voici une image de notre MCD : 
-<img width="1206" height="783" alt="image" src="https://github.com/user-attachments/assets/536e1c2c-a709-472c-8095-82f26b360634" />
+<img width="1261" height="783" alt="image" src="https://github.com/user-attachments/assets/937fb207-0061-4c74-b17d-5379af9acf08" />
 
 
