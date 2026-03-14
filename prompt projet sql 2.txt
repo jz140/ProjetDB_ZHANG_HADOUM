@@ -1,0 +1,26 @@
+Donne les requêtes d’insertion permettant de remplir la base de données dont le modèle relationnel est le suivant :
+
+CATEGORIE (id_categorie, nom_categorie) - Clé primaire : id_categorie
+CLIENT (id_client, nom_client, email_client, telephone) - Clé primaire : id_client
+FOURNISSEUR (id_fournisseur, nom_fournisseur, delai_approvisionnement) - Clé primaire : id_fournisseur
+ENTREPOT (id_entrepot, nom_entrepot, adresse_entrepot) - Clé primaire : id_entrepot
+PROMOTION (id_promotion, pourcentage_reduction, date_debut, date_fin) - Clé primaire : id_promotion
+PRODUIT (id_produit, nom_produit, codebarres, description_produit, prix_vente_courant, #id_categorie) - Clé primaire : id_produit
+COMMANDE (id_commande, date_commande, statut_commande, #id_client) - Clé primaire : id_commande
+LIGNE_COMMANDE (#id_commande, #id_produit, quantite_commandee, prix_unitaire) - Clé primaire composée : (id_commande, id_produit)
+STOCK (#id_produit, #id_entrepot, quantite_stock) - Clé primaire composée : (id_produit, id_entrepot)
+FOURNIS (#id_produit, #id_fournisseur, prix_achat) - Clé primaire composée : (id_produit, id_fournisseur)
+CONCERNE (#id_produit, #id_promotion) - Clé primaire composée : (id_produit, id_promotion)
+
+Les clés primaires correspondent aux id, sauf si autre chose est précisé (quand c'est un attribut composé). Les clés étrangères sont identifiées par les #, et ont le même nom que les clés primaires auxquelles elles font référence.
+
+Consignes de remplissage :
+Génère 5 catégories, 10 produits, 5 clients, 5 commandes, 3 fournisseurs, 2 entrepôts et 2 promotions.
+Pour les produits, utilise des noms inspirés d'IKEA comme « Bibliothèque BILLY », « Lit MALM », « Étagère KALLAX », « Canapé EKTORP » ou « Table INGATORP ».
+
+Assure-toi que les prix de vente sont logiques (ex: le canapé doit être plus cher que l'étagère).
+Les pourcentages de réduction doivent être compris entre 5 et 50.
+
+Les clés étrangères doivent faire référence aux clés primaires existantes : donne les lignes en commençant par remplir les tables dans lesquelles il n'y a pas de clés étrangères, puis les tables dans lesquelles les clés étrangères font références à des clés primaires des tables déjà remplies.
+
+Fournis l'ensemble sous la forme d’un script SQL prêt à être exécuté, commençant par la commande USE boutique_meubles.
