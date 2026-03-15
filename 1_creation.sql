@@ -1,15 +1,16 @@
 CREATE DATABASE IF NOT EXISTS boutique_meubles;
 USE boutique_meubles;
 
+-- Désactivation des clés pour la suppression
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS CONCERNE, APPROVISIONNER, LIGNE_COMMANDE, COMMANDE, PRODUIT, PROMOTION, ENTREPOT, FOURNISSEUR, CLIENT, CATEGORIE;
 
--- Table CATEGORIE (avec auto-référence pour les sous-catégories)
+-- 1. Tables indépendantes (Parents)
 CREATE TABLE CATEGORIE (
     id_categorie INT PRIMARY KEY,
     nom_categorie VARCHAR(100) NOT NULL,
-    id_parent INT,
-    CONSTRAINT fk_categorie_parente FOREIGN KEY (id_parent) REFERENCES CATEGORIE(id_categorie) ON DELETE SET NULL
+    id_categorie_1 INT, -- id_parent pour les sous-catégories
+    CONSTRAINT fk_categorie_parente FOREIGN KEY (id_categorie_1) REFERENCES CATEGORIE(id_categorie) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
 CREATE TABLE CLIENT (
@@ -38,7 +39,7 @@ CREATE TABLE PROMOTION (
     date_fin DATE NOT NULL
 ) ENGINE=InnoDB;
 
--- Table PRODUIT (Mise à jour avec tous les nouveaux champs du MCD)
+-- 2. Tables dépendantes (Enfants)
 CREATE TABLE PRODUIT (
     id_produit INT PRIMARY KEY,
     nom_produit VARCHAR(100) NOT NULL,
@@ -64,18 +65,17 @@ CREATE TABLE COMMANDE (
     CONSTRAINT fk_commande_client FOREIGN KEY (id_client) REFERENCES CLIENT(id_client) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- Table d'association LIGNE_COMMANDE (Nettoyée des doublons _1)
+-- 3. Tables d'association
 CREATE TABLE LIGNE_COMMANDE (
     id_commande INT,
     id_produit INT,
     quantite_commandee INT NOT NULL,
     prix_unitaire DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id_commande, id_produit),
-    CONSTRAINT fk_ligne_comm FOREIGN KEY (id_commande) REFERENCES COMMANDE(id_commande) ON DELETE CASCADE,
-    CONSTRAINT fk_ligne_prod FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit) ON DELETE CASCADE
+    CONSTRAINT fk_lc_commande FOREIGN KEY (id_commande) REFERENCES COMMANDE(id_commande) ON DELETE CASCADE,
+    CONSTRAINT fk_lc_produit FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- Table Ternaire APPROVISIONNER (Remplace STOCK et FOURNIS)
 CREATE TABLE APPROVISIONNER (
     id_produit INT,
     id_fournisseur INT,
