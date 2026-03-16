@@ -24,7 +24,9 @@ CREATE TABLE CATEGORIE (
     id_categorie INT PRIMARY KEY,
     nom_categorie VARCHAR(100) NOT NULL,
     id_categorie_1 INT,
-    FOREIGN KEY (id_categorie_1) REFERENCES CATEGORIE(id_categorie)
+    FOREIGN KEY (id_categorie_1)
+        REFERENCES CATEGORIE(id_categorie)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE PRODUIT (
@@ -43,7 +45,9 @@ CREATE TABLE PRODUIT (
     hauteur_produit DECIMAL(6,2),
     date_ajout_produit DATE,
     id_categorie INT,
-    FOREIGN KEY (id_categorie) REFERENCES CATEGORIE(id_categorie)
+    FOREIGN KEY (id_categorie)
+        REFERENCES CATEGORIE(id_categorie)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE COMMANDE (
@@ -51,7 +55,9 @@ CREATE TABLE COMMANDE (
     date_commande DATETIME,
     statut_commande BOOLEAN,
     id_client INT,
-    FOREIGN KEY (id_client) REFERENCES CLIENT(id_client)
+    FOREIGN KEY (id_client)
+        REFERENCES CLIENT(id_client)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE PROMOTION (
@@ -60,7 +66,9 @@ CREATE TABLE PROMOTION (
     pourcentage_reduction DECIMAL(5,2),
     date_debut DATE,
     date_fin DATE,
-    FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit)
+    FOREIGN KEY (id_produit)
+        REFERENCES PRODUIT(id_produit)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE LIGNE_COMMANDE (
@@ -71,8 +79,12 @@ CREATE TABLE LIGNE_COMMANDE (
     id_commande_1 INT,
     id_produit_1 INT,
     PRIMARY KEY (id_commande, id_produit),
-    FOREIGN KEY (id_commande) REFERENCES COMMANDE(id_commande),
-    FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit)
+    FOREIGN KEY (id_commande)
+        REFERENCES COMMANDE(id_commande)
+        ON UPDATE CASCADE,
+    FOREIGN KEY (id_produit)
+        REFERENCES PRODUIT(id_produit)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE APPROVISIONNER (
@@ -83,9 +95,15 @@ CREATE TABLE APPROVISIONNER (
     prix_achat_lot DECIMAL(10,2),
     date_livraison DATE,
     PRIMARY KEY (id_produit, id_fournisseur, id_entrepot),
-    FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit),
-    FOREIGN KEY (id_fournisseur) REFERENCES FOURNISSEUR(id_fournisseur),
-    FOREIGN KEY (id_entrepot) REFERENCES ENTREPOT(id_entrepot)
+    FOREIGN KEY (id_produit)
+        REFERENCES PRODUIT(id_produit)
+        ON UPDATE CASCADE,
+    FOREIGN KEY (id_fournisseur)
+        REFERENCES FOURNISSEUR(id_fournisseur)
+        ON UPDATE CASCADE,
+    FOREIGN KEY (id_entrepot)
+        REFERENCES ENTREPOT(id_entrepot)
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE CONCERNE (
@@ -93,9 +111,14 @@ CREATE TABLE CONCERNE (
     id_produit_1 INT,
     id_promotion INT,
     PRIMARY KEY (id_produit, id_promotion),
-    FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit),
-    FOREIGN KEY (id_produit_1) REFERENCES PRODUIT(id_produit),
-    FOREIGN KEY (id_promotion) REFERENCES PROMOTION(id_promotion)
+    FOREIGN KEY (id_produit)
+        REFERENCES PRODUIT(id_produit)
+        ON UPDATE CASCADE,
+    FOREIGN KEY (id_produit_1)
+        REFERENCES PRODUIT(id_produit)
+        ON UPDATE CASCADE,
+    FOREIGN KEY (id_promotion)
+        REFERENCES PROMOTION(id_promotion)
+        ON UPDATE CASCADE
 );
-
 
