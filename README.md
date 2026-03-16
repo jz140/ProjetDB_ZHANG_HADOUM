@@ -21,7 +21,6 @@ Voici une image de notre MCD :
 <img width="1261" height="783" alt="image" src="https://github.com/user-attachments/assets/937fb207-0061-4c74-b17d-5379af9acf08" />
 
 Voici une image du MLD:
-https://github.com/jz140/ProjetDB_ZHANG_HADOUM/blob/main/image%20/image%20du%20MLD.png?raw=true
-
+![ScreenShot](https://github.com/jz140/ProjetDB_ZHANG_HADOUM/blob/main/image%20/image%20du%20MLD.png)
 
 
