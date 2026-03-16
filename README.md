@@ -17,10 +17,12 @@ Et voici les images pris de la discussion avec l'IA :
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/06e022c7-ef59-4c75-86ca-0ae78d904c28" />
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/80867957-bc72-4df5-a73d-0fc842f6697b" />
 
-On a ajouté deux autres attributs aux clients, "email_client" et "telephone_client".
+Nous avons ajouté deux autres attributs dans l'entité client qui sont : "email_client" et "telephone_client". 
+Nous avons enlevé plusieurs attributs a l'entité produit qui sont : "statut_produit", "date_mise_marche".
+Nous avons changé un attribut dans l'entité produit : "date_creation_marche" en "date_ajout_produit".
 
 Voici une image de notre MCD : 
-![ScreenShot](https://github.com/jz140/ProjetDB_ZHANG_HADOUM/blob/main/image%20/image%20MCD.png)
+![ScreenShot](https://github.com/jz140/ProjetDB_ZHANG_HADOUM/blob/main/image%20/image%20du%20MCD.png)
 
 Voici une image du MLD:
 ![ScreenShot](https://github.com/jz140/ProjetDB_ZHANG_HADOUM/blob/main/image%20/image%20du%20MLD.png)
