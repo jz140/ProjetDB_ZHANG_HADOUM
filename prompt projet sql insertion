@@ -1,16 +1,15 @@
 Donne les requêtes d’insertion permettant de remplir la base de données dont le modèle relationnel est le suivant :
 
-CATEGORIE (id_categorie, nom_categorie) - Clé primaire : id_categorie
-CLIENT (id_client, nom_client, email_client, telephone) - Clé primaire : id_client
-FOURNISSEUR (id_fournisseur, nom_fournisseur, delai_approvisionnement) - Clé primaire : id_fournisseur
-ENTREPOT (id_entrepot, nom_entrepot, adresse_entrepot) - Clé primaire : id_entrepot
-PROMOTION (id_promotion, pourcentage_reduction, date_debut, date_fin) - Clé primaire : id_promotion
-PRODUIT (id_produit, nom_produit, codebarres, description_produit, prix_vente_courant, #id_categorie) - Clé primaire : id_produit
-COMMANDE (id_commande, date_commande, statut_commande, #id_client) - Clé primaire : id_commande
-LIGNE_COMMANDE (#id_commande, #id_produit, quantite_commandee, prix_unitaire) - Clé primaire composée : (id_commande, id_produit)
-STOCK (#id_produit, #id_entrepot, quantite_stock) - Clé primaire composée : (id_produit, id_entrepot)
-FOURNIS (#id_produit, #id_fournisseur, prix_achat) - Clé primaire composée : (id_produit, id_fournisseur)
-CONCERNE (#id_produit, #id_promotion) - Clé primaire composée : (id_produit, id_promotion)
+FOURNISSEUR = (id_fournisseur INT, nom_fournisseur VARCHAR(50), delai_approvisionnement INT);
+ENTREPOT = (id_entrepot INT, nom_entrepot VARCHAR(50), adresse_entrepot VARCHAR(50));
+CLIENT = (id_client INT, nom_client VARCHAR(50), telephone_client VARCHAR(20), email_client VARCHAR(50));
+COMMANDE = (id_commande INT, date_commande DATETIME, statut_commande LOGICAL, #id_client);
+CATEGORIE = (id_categorie INT, nom_categorie VARCHAR(50), #id_categorie_1*);
+PROMOTION = (id_produit INT, id_promotion INT, pourcentage_reduction DECIMAL(15,2), date_debut DATE, date_fin DATE);
+PRODUIT = (id_produit INT, nom_produit VARCHAR(50), codebarres_produit INT, description_produit VARCHAR(50), prix_vente_courant_produit DECIMAL(15,2), prix_vente_en_ligne_produit INT, cout_fabrication_unitaire_produit DECIMAL(15,2), materiau_produit VARCHAR(50), coloris_produit VARCHAR(50), poids_produit DECIMAL(15,2), longueur_produit DECIMAL(15,2), largeur_produit DECIMAL(15,2), hauteur_produit DECIMAL(15,2), date_ajout_produit DATE, #id_categorie);
+LIGNE_COMMANDE = (id_commande INT, id_produit INT, quantite_commandee INT, prix_unitaire DECIMAL(15,2), #id_commande_1, #id_produit_1);
+APPROVISIONNER = (#id_produit, #id_fournisseur, #id_entrepot, quantite_livree INT, prix_achat_lot INT, date_livraison DATE);
+CONCERNE = (#id_produit, #(id_produit_1, id_promotion));
 
 Les clés primaires correspondent aux id, sauf si autre chose est précisé (quand c'est un attribut composé). Les clés étrangères sont identifiées par les #, et ont le même nom que les clés primaires auxquelles elles font référence.
 
