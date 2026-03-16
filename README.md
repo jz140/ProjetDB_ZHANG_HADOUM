@@ -28,3 +28,15 @@ Voici une image du MLD:
 ![ScreenShot](https://github.com/jz140/ProjetDB_ZHANG_HADOUM/blob/main/image%20/image%20du%20MLD.png)
 
 
+Voici notre scénario d'utilisation : 
+
+Le responsable marketing souhaite analyser les ventes, les produits et les promotions pour préparer une prochaine campagne et suivre les performances de la boutique.
+
+Il cherche donc des données à extraire pour les analyser :
+- Liste des produits disponibles et de leurs prix.
+- Produits en promotion et le pourcentage de réduction.
+- Clients ayant passé des commandes importantes.
+- Statistiques sur les ventes (quantité moyenne, chiffre d’affaires…).
+- Produits rarement commandés ou non vendus.
+
+

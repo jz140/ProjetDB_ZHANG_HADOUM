@@ -1,99 +1,105 @@
 CREATE DATABASE IF NOT EXISTS boutique_meubles;
 USE boutique_meubles;
 
--- Désactivation des clés pour la suppression
-SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS CONCERNE, APPROVISIONNER, LIGNE_COMMANDE, COMMANDE, PRODUIT, PROMOTION, ENTREPOT, FOURNISSEUR, CLIENT, CATEGORIE;
+DROP TABLE IF EXISTS CONCERNE;
+DROP TABLE IF EXISTS APPROVISIONNER;
+DROP TABLE IF EXISTS LIGNE_COMMANDE;
+DROP TABLE IF EXISTS COMMANDE;
+DROP TABLE IF EXISTS PRODUIT;
+DROP TABLE IF EXISTS PROMOTION;
+DROP TABLE IF EXISTS ENTREPOT;
+DROP TABLE IF EXISTS FOURNISSEUR;
+DROP TABLE IF EXISTS CLIENT;
+DROP TABLE IF EXISTS CATEGORIE;
 
--- 1. Tables indépendantes (Parents)
 CREATE TABLE CATEGORIE (
     id_categorie INT PRIMARY KEY,
-    nom_categorie VARCHAR(100) NOT NULL,
-    id_categorie_1 INT, -- id_parent pour les sous-catégories
-    CONSTRAINT fk_categorie_parente FOREIGN KEY (id_categorie_1) REFERENCES CATEGORIE(id_categorie) ON DELETE SET NULL
-) ENGINE=InnoDB;
+    nom_categorie VARCHAR(50) NOT NULL,
+    id_categorie_1 INT, 
+    FOREIGN KEY (id_categorie_1) REFERENCES CATEGORIE(id_categorie) ON DELETE SET NULL
+);
 
 CREATE TABLE CLIENT (
     id_client INT PRIMARY KEY,
-    nom_client VARCHAR(100) NOT NULL,
-    email_client VARCHAR(150),
+    nom_client VARCHAR(50) NOT NULL,
+    email_client VARCHAR(50),
     telephone VARCHAR(20)
-) ENGINE=InnoDB;
+);
 
 CREATE TABLE FOURNISSEUR (
     id_fournisseur INT PRIMARY KEY,
-    nom_fournisseur VARCHAR(100) NOT NULL,
+    nom_fournisseur VARCHAR(50) NOT NULL,
     delai_approvisionnement INT
-) ENGINE=InnoDB;
+);
 
 CREATE TABLE ENTREPOT (
     id_entrepot INT PRIMARY KEY,
-    nom_entrepot VARCHAR(100) NOT NULL,
+    nom_entrepot VARCHAR(50) NOT NULL,
     adresse_entrepot VARCHAR(255)
-) ENGINE=InnoDB;
+);
 
 CREATE TABLE PROMOTION (
     id_promotion INT PRIMARY KEY,
     pourcentage_reduction INT NOT NULL,
     date_debut DATE NOT NULL,
     date_fin DATE NOT NULL
-) ENGINE=InnoDB;
+);
 
--- 2. Tables dépendantes (Enfants)
 CREATE TABLE PRODUIT (
     id_produit INT PRIMARY KEY,
-    nom_produit VARCHAR(100) NOT NULL,
-    codebarres VARCHAR(50) UNIQUE,
+    nom_produit VARCHAR(50) NOT NULL,
+    codebarres_produit INT UNIQUE NOT NULL,
     description_produit TEXT,
-    prix_vente_courant DECIMAL(10,2) NOT NULL,
-    poids DECIMAL(8,2),
-    longueur DECIMAL(8,2),
-    largeur DECIMAL(8,2),
-    hauteur DECIMAL(8,2),
-    couleur VARCHAR(50),
-    materiau VARCHAR(100),
-    date_ajout DATE,
+    statut_produit VARCHAR(50),
+    prix_vente_courant_produit DECIMAL(10,2) NOT NULL,
+    prix_vente_en_ligne_produit DECIMAL(10,2) NOT NULL,
+    cout_fabrication_unitaire_produit INT NOT NULL,
+    poids_produit DECIMAL(8,2),
+    longueur_produit DECIMAL(8,2),
+    largeur_produit DECIMAL(8,2),
+    hauteur_produit DECIMAL(8,2),
+    coloris_produit VARCHAR(50),
+    materiau_produit VARCHAR(50),
+    date_ajout_produit DATE NOT NULL,
     id_categorie INT NOT NULL,
-    CONSTRAINT fk_produit_categorie FOREIGN KEY (id_categorie) REFERENCES CATEGORIE(id_categorie) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB;
+    FOREIGN KEY (id_categorie) REFERENCES CATEGORIE(id_categorie) ON DELETE CASCADE
+);
 
 CREATE TABLE COMMANDE (
     id_commande INT PRIMARY KEY,
     date_commande DATE NOT NULL,
     statut_commande VARCHAR(50),
     id_client INT NOT NULL,
-    CONSTRAINT fk_commande_client FOREIGN KEY (id_client) REFERENCES CLIENT(id_client) ON UPDATE CASCADE ON DELETE CASCADE
-) ENGINE=InnoDB;
+    FOREIGN KEY (id_client) REFERENCES CLIENT(id_client) ON DELETE CASCADE
+);
 
--- 3. Tables d'association
 CREATE TABLE LIGNE_COMMANDE (
     id_commande INT,
     id_produit INT,
     quantite_commandee INT NOT NULL,
     prix_unitaire DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id_commande, id_produit),
-    CONSTRAINT fk_lc_commande FOREIGN KEY (id_commande) REFERENCES COMMANDE(id_commande) ON DELETE CASCADE,
-    CONSTRAINT fk_lc_produit FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit) ON DELETE CASCADE
-) ENGINE=InnoDB;
+    FOREIGN KEY (id_commande) REFERENCES COMMANDE(id_commande) ON DELETE CASCADE,
+    FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit) ON DELETE CASCADE
+);
 
 CREATE TABLE APPROVISIONNER (
     id_produit INT,
     id_fournisseur INT,
     id_entrepot INT,
-    quantite_stock INT NOT NULL DEFAULT 0,
-    prix_achat DECIMAL(10,2) NOT NULL,
+    quantite_livree INT NOT NULL DEFAULT 0,
+    prix_achat_lot DECIMAL(10,2) NOT NULL,
+    date_livraison DATE NOT NULL,
     PRIMARY KEY (id_produit, id_fournisseur, id_entrepot),
-    CONSTRAINT fk_app_prod FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit) ON DELETE CASCADE,
-    CONSTRAINT fk_app_fourn FOREIGN KEY (id_fournisseur) REFERENCES FOURNISSEUR(id_fournisseur) ON DELETE CASCADE,
-    CONSTRAINT fk_app_entre FOREIGN KEY (id_entrepot) REFERENCES ENTREPOT(id_entrepot) ON DELETE CASCADE
-) ENGINE=InnoDB;
+    FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit) ON DELETE CASCADE,
+    FOREIGN KEY (id_fournisseur) REFERENCES FOURNISSEUR(id_fournisseur) ON DELETE CASCADE,
+    FOREIGN KEY (id_entrepot) REFERENCES ENTREPOT(id_entrepot) ON DELETE CASCADE
+);
 
 CREATE TABLE CONCERNE (
     id_produit INT,
     id_promotion INT,
     PRIMARY KEY (id_produit, id_promotion),
-    CONSTRAINT fk_conc_prod FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit) ON DELETE CASCADE,
-    CONSTRAINT fk_conc_prom FOREIGN KEY (id_promotion) REFERENCES PROMOTION(id_promotion) ON DELETE CASCADE
-) ENGINE=InnoDB;
-
-SET FOREIGN_KEY_CHECKS = 1;
+    FOREIGN KEY (id_produit) REFERENCES PRODUIT(id_produit) ON DELETE CASCADE,
+    FOREIGN KEY (id_promotion) REFERENCES PROMOTION(id_promotion) ON DELETE CASCADE
+);

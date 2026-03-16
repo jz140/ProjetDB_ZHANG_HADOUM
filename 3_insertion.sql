@@ -1,25 +1,105 @@
 USE boutique_meubles;
 
--- 1. ON INSERE D'ABORD LES CATEGORIES (Indispensable pour l'ID 2)
-INSERT INTO CATEGORIE (id_categorie, nom_categorie, id_categorie_1) VALUES 
-(1, 'Salons', NULL), 
-(2, 'Canapés', 1),   -- On crée ici l'ID 2 qui posait problème
-(3, 'Tables basses', 1),
-(4, 'Chambres', NULL);
+-- -----------------------------
+-- Insertion des fournisseurs
+-- -----------------------------
+INSERT INTO FOURNISSEUR (id_fournisseur, nom_fournisseur, delai_approvisionnement) VALUES
+(1, 'Fournitures Scandinaves', 10),
+(2, 'Meubles & Co', 15),
+(3, 'Design Nordique', 7);
 
--- 2. ON INSERE LES AUTRES TABLES PARENTES
-INSERT INTO CLIENT VALUES (1, 'Alice Martin', 'alice@mail.com', '0601020304'), (2, 'Bob Durand', 'bob@mail.com', '0611121314');
-INSERT INTO FOURNISSEUR VALUES (1, 'IKEA Suède', 10), (2, 'Hêtre France', 15);
-INSERT INTO ENTREPOT VALUES (1, 'Entrepôt Nord', 'Lille'), (2, 'Entrepôt Sud', 'Marseille');
-INSERT INTO PROMOTION VALUES (1, 15, '2024-03-01', '2024-03-31');
+-- -----------------------------
+-- Insertion des entrepôts
+-- -----------------------------
+INSERT INTO ENTREPOT (id_entrepot, nom_entrepot, adresse_entrepot) VALUES
+(1, 'Entrepôt Nord', '12 rue du Meuble, Paris'),
+(2, 'Entrepôt Sud', '45 avenue du Design, Lyon');
 
--- 3. MAINTENANT ON PEUT INSERER LES PRODUITS (Ils trouveront la catégorie 2)
-INSERT INTO PRODUIT VALUES 
-(101, 'Canapé EKTORP', 'CB101', 'Canapé 3 places gris', 499.00, 45.0, 218.0, 88.0, 88.0, 'Gris', 'Tissu', '2024-01-01', 2),
-(102, 'Table LACK', 'CB102', 'Petite table blanche', 15.00, 3.0, 55.0, 55.0, 45.0, 'Blanc', 'Bois', '2024-01-05', 3);
+-- -----------------------------
+-- Insertion des clients
+-- -----------------------------
+INSERT INTO CLIENT (id_client, nom_client, telephone_client, email_client) VALUES
+(1, 'Alice Martin', '0601020304', 'alice.martin@email.com'),
+(2, 'Bob Dupont', '0605060708', 'bob.dupont@email.com'),
+(3, 'Claire Bernard', '0611121314', 'claire.bernard@email.com'),
+(4, 'David Petit', '0615161718', 'david.petit@email.com'),
+(5, 'Emma Durand', '0619202122', 'emma.durand@email.com');
 
--- 4. TABLES D'ASSOCIATION ET COMMANDES
-INSERT INTO COMMANDE VALUES (501, '2024-03-10', 'Livré', 1);
-INSERT INTO LIGNE_COMMANDE VALUES (501, 101, 1, 499.00);
-INSERT INTO APPROVISIONNER VALUES (101, 1, 1, 10, 250.00), (102, 2, 2, 50, 5.00);
-INSERT INTO CONCERNE VALUES (101, 1);
+-- -----------------------------
+-- Insertion des catégories
+-- -----------------------------
+INSERT INTO CATEGORIE (id_categorie, nom_categorie, id_categorie_1) VALUES
+(1, 'Bibliothèques', NULL),
+(2, 'Lits', NULL),
+(3, 'Étagères', NULL),
+(4, 'Canapés', NULL),
+(5, 'Tables', NULL);
+
+-- -----------------------------
+-- Insertion des produits
+-- -----------------------------
+INSERT INTO PRODUIT (id_produit, nom_produit, codebarres_produit, description_produit, prix_vente_courant_produit, prix_vente_en_ligne_produit, cout_fabrication_unitaire_produit, materiau_produit, coloris_produit, poids_produit, longueur_produit, largeur_produit, hauteur_produit, date_ajout_produit, id_categorie) VALUES
+(1, 'Bibliothèque BILLY', 100001, 'Bibliothèque en bois blanc', 80.00, 75, 40.00, 'Bois', 'Blanc', 20.0, 80.0, 28.0, 202.0, '2026-01-10', 1),
+(2, 'Bibliothèque HEMNES', 100002, 'Bibliothèque bois massif', 150.00, 145, 90.00, 'Bois massif', 'Chêne', 25.0, 90.0, 35.0, 200.0, '2026-01-15', 1),
+(3, 'Lit MALM', 100003, 'Lit simple avec rangement', 200.00, 190, 120.00, 'Bois', 'Blanc', 50.0, 200.0, 90.0, 40.0, '2026-01-20', 2),
+(4, 'Lit BRIMNES', 100004, 'Lit double avec tiroirs', 350.00, 340, 200.00, 'Bois', 'Gris', 60.0, 200.0, 160.0, 40.0, '2026-01-22', 2),
+(5, 'Étagère KALLAX', 100005, 'Étagère modulable', 70.00, 65, 35.00, 'Bois', 'Blanc', 15.0, 77.0, 39.0, 147.0, '2026-01-25', 3),
+(6, 'Étagère LACK', 100006, 'Étagère simple murale', 25.00, 20, 10.00, 'Bois', 'Blanc', 5.0, 30.0, 26.0, 190.0, '2026-01-28', 3),
+(7, 'Canapé EKTORP', 100007, 'Canapé confortable 3 places', 500.00, 480, 300.00, 'Tissu', 'Beige', 35.0, 220.0, 90.0, 90.0, '2026-02-01', 4),
+(8, 'Canapé FÄRLÖV', 100008, 'Canapé 2 places élégant', 400.00, 380, 250.00, 'Tissu', 'Gris', 30.0, 180.0, 85.0, 85.0, '2026-02-03', 4),
+(9, 'Table INGATORP', 100009, 'Table extensible en bois', 250.00, 240, 150.00, 'Bois', 'Blanc', 45.0, 150.0, 90.0, 75.0, '2026-02-05', 5),
+(10, 'Table LACK', 100010, 'Table basse simple', 50.00, 45, 20.00, 'Bois', 'Blanc', 10.0, 90.0, 55.0, 45.0, '2026-02-07', 5);
+
+-- -----------------------------
+-- Insertion des promotions
+-- -----------------------------
+INSERT INTO PROMOTION (id_produit, id_promotion, pourcentage_reduction, date_debut, date_fin) VALUES
+(1, 1, 10.00, '2026-03-01', '2026-03-31'),
+(7, 2, 20.00, '2026-03-10', '2026-04-10');
+
+-- -----------------------------
+-- Insertion des commandes
+-- -----------------------------
+INSERT INTO COMMANDE (id_commande, date_commande, statut_commande, id_client) VALUES
+(1, '2026-03-10 10:00:00', TRUE, 1),
+(2, '2026-03-11 11:30:00', FALSE, 2),
+(3, '2026-03-12 14:45:00', TRUE, 3),
+(4, '2026-03-13 16:00:00', FALSE, 4),
+(5, '2026-03-14 09:15:00', TRUE, 5);
+
+-- -----------------------------
+-- Insertion des lignes de commande
+-- -----------------------------
+INSERT INTO LIGNE_COMMANDE (id_commande, id_produit, quantite_commandee, prix_unitaire, id_commande_1, id_produit_1) VALUES
+(1, 1, 2, 80.00, 1, 1),
+(1, 7, 1, 500.00, 1, 7),
+(2, 3, 1, 200.00, 2, 3),
+(2, 5, 3, 70.00, 2, 5),
+(3, 4, 1, 350.00, 3, 4),
+(3, 6, 2, 25.00, 3, 6),
+(4, 8, 1, 400.00, 4, 8),
+(4, 9, 1, 250.00, 4, 9),
+(5, 2, 1, 150.00, 5, 2),
+(5, 10, 2, 50.00, 5, 10);
+
+-- -----------------------------
+-- Insertion des approvisionnements
+-- -----------------------------
+INSERT INTO APPROVISIONNER (id_produit, id_fournisseur, id_entrepot, quantite_livree, prix_achat_lot, date_livraison) VALUES
+(1, 1, 1, 50, 40, '2026-02-15'),
+(2, 1, 1, 30, 90, '2026-02-16'),
+(3, 2, 2, 20, 120, '2026-02-17'),
+(4, 2, 2, 15, 200, '2026-02-18'),
+(5, 3, 1, 40, 35, '2026-02-19'),
+(6, 3, 1, 50, 10, '2026-02-20'),
+(7, 1, 2, 10, 300, '2026-02-21'),
+(8, 2, 2, 12, 250, '2026-02-22'),
+(9, 3, 1, 18, 150, '2026-02-23'),
+(10, 1, 2, 25, 20, '2026-02-24');
+
+-- -----------------------------
+-- Insertion des produits concernés par les promotions
+-- -----------------------------
+INSERT INTO CONCERNE (id_produit, id_produit_1, id_promotion) VALUES
+(1, 1, 1),
+(7, 7, 2);
