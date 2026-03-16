@@ -26,6 +26,7 @@ CREATE TABLE CATEGORIE (
     id_categorie_1 INT,
     FOREIGN KEY (id_categorie_1)
         REFERENCES CATEGORIE(id_categorie)
+        ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
@@ -47,7 +48,15 @@ CREATE TABLE PRODUIT (
     id_categorie INT,
     FOREIGN KEY (id_categorie)
         REFERENCES CATEGORIE(id_categorie)
+        ON DELETE CASCADE
         ON UPDATE CASCADE
+);
+
+CREATE TABLE CLIENT (
+    id_client INT PRIMARY KEY,
+    nom_client VARCHAR(100) NOT NULL,
+    email_client VARCHAR(100),
+    telephone_client INT
 );
 
 CREATE TABLE COMMANDE (
@@ -57,6 +66,7 @@ CREATE TABLE COMMANDE (
     id_client INT,
     FOREIGN KEY (id_client)
         REFERENCES CLIENT(id_client)
+        ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
@@ -68,6 +78,7 @@ CREATE TABLE PROMOTION (
     date_fin DATE,
     FOREIGN KEY (id_produit)
         REFERENCES PRODUIT(id_produit)
+        ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
@@ -81,9 +92,11 @@ CREATE TABLE LIGNE_COMMANDE (
     PRIMARY KEY (id_commande, id_produit),
     FOREIGN KEY (id_commande)
         REFERENCES COMMANDE(id_commande)
+        ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY (id_produit)
         REFERENCES PRODUIT(id_produit)
+        ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
@@ -97,12 +110,15 @@ CREATE TABLE APPROVISIONNER (
     PRIMARY KEY (id_produit, id_fournisseur, id_entrepot),
     FOREIGN KEY (id_produit)
         REFERENCES PRODUIT(id_produit)
+        ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY (id_fournisseur)
         REFERENCES FOURNISSEUR(id_fournisseur)
+        ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY (id_entrepot)
         REFERENCES ENTREPOT(id_entrepot)
+        ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 
@@ -113,12 +129,14 @@ CREATE TABLE CONCERNE (
     PRIMARY KEY (id_produit, id_promotion),
     FOREIGN KEY (id_produit)
         REFERENCES PRODUIT(id_produit)
+        ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY (id_produit_1)
         REFERENCES PRODUIT(id_produit)
+        ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY (id_promotion)
         REFERENCES PROMOTION(id_promotion)
+        ON DELETE CASCADE
         ON UPDATE CASCADE
 );
-
